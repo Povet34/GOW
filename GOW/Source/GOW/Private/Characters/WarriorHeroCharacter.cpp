@@ -51,6 +51,7 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	UWarriorInputComponent* WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
 
 	WarriorInputComponent->BindNativeInputAction(InputconfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
+	WarriorInputComponent->BindNativeInputAction(InputconfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 
 }
 
@@ -62,4 +63,33 @@ void AWarriorHeroCharacter::BeginPlay()
 
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
+	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
+	const FRotator MovementRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
+
+	if (MovementVector.Y != 0.f)
+	{
+		const FVector Direction = MovementRotation.RotateVector(FVector::ForwardVector);
+		AddMovementInput(Direction, MovementVector.Y);
+	}
+
+	if (MovementVector.X != 0.f)
+	{
+		const FVector Direction = MovementRotation.RotateVector(FVector::RightVector);
+		AddMovementInput(Direction, MovementVector.X);
+	}
+}
+
+void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
+{
+	const FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
+
+	if (LookAxisVector.X != 0.f)
+	{
+		AddControllerYawInput(LookAxisVector.X);
+	}
+
+	if (LookAxisVector.Y != 0.f)
+	{
+		AddControllerYawInput(LookAxisVector.Y);
+	}
 }
