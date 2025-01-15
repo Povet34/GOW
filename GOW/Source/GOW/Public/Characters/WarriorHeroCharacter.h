@@ -8,6 +8,9 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class UDataAsset_InputConfig;
+class SetupPlayerInputComponent;
+struct FInputActionValue;
 
 /**
  * 
@@ -21,6 +24,7 @@ public:
 	AWarriorHeroCharacter();
 	
 protected:
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
 private:
@@ -35,4 +39,12 @@ private:
 
 #pragma endregion
 
+#pragma region Inputs
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
+	UDataAsset_InputConfig* InputconfigDataAsset;
+
+	void Input_Move(const FInputActionValue& InputActionValue);
+
+#pragma endregion
 };
