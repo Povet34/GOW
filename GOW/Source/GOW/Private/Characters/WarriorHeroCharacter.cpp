@@ -10,6 +10,7 @@
 #include "Components/Input/WarriorInputComponent.h"
 #include "DataAssets/DataAsset_InputConfig.h"
 #include "WarriorGameplayTags.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -37,6 +38,21 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 }
 
+void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	{
+		FString ACSText = 
+			FString::Printf(TEXT("Owner : %s,  Actor : %s"), 
+				*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), 
+				*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+
+		Debug::Print(TEXT("Abilityz system compoment valid") + ACSText, FColor::Green);
+		Debug::Print(TEXT("AttributeSet compoment valid"), FColor::Green);
+	}
+}
+
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	checkf(InputconfigDataAsset, TEXT("Input config is null. AWarriorHeroCharacter::SetupPlayerInputComponent"));
@@ -53,12 +69,11 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	WarriorInputComponent->BindNativeInputAction(InputconfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	WarriorInputComponent->BindNativeInputAction(InputconfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 
-}
+} 
 
 void AWarriorHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	Debug::Print("Working");
 }
 
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)

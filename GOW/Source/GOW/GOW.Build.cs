@@ -17,6 +17,7 @@ public class GOW : ModuleRules
 			"EnhancedInput", 
 			"GameplayTags",
             "EnhancedInput",
+            "GameplayTasks",
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
