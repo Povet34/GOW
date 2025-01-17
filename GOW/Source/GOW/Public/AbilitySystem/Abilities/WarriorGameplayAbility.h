@@ -12,10 +12,10 @@ enum class EWarriorAbilityActivationPolicy : uint8
 	OnTriggered,
 	OnGiven,
 };
-
+ 
 /**
  * 
- */
+ */ 
 UCLASS()
 class GOW_API UWarriorGameplayAbility : public UGameplayAbility
 {
