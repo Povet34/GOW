@@ -6,7 +6,9 @@
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "WarriorHeroGameplayAbility.generated.h"
 
-class AHeroCharacter;
+class AWarriorHeroCharacter;
+class AWarriorHeroController;
+
 /**
  * 
  */
@@ -17,8 +19,12 @@ class GOW_API UWarriorHeroGameplayAbility : public UWarriorGameplayAbility
 	
 public:
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-	AHeroCharacter* GetHeroActorFromActorInfo() const;
+	AWarriorHeroCharacter* GetHeroCharacterFromActorInfo();
+
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	AWarriorHeroController* GetHeroControllerFromActorInfo();
 
 private:
-	TWeakObjectPtr<AHeroCharacter> CachedHeroCharacter;
+	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
+	TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
 };

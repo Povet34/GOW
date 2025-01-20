@@ -2,8 +2,24 @@
 
 
 #include "AbilitySystem/Abilities/WarriorHeroGameplayAbility.h"
+#include "Characters/WarriorHeroCharacter.h"
+#include "Controllers/WarriorHeroController.h"
 
-AHeroCharacter* UWarriorHeroGameplayAbility::GetHeroActorFromActorInfo() const
+AWarriorHeroCharacter* UWarriorHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
-    Cast<AHeroCharacter>(CurrentActorInfo->AvatarActor);
+    if (!CachedWarriorHeroCharacter.IsValid())
+    {
+        CachedWarriorHeroCharacter = Cast<AWarriorHeroCharacter>(CurrentActorInfo->AvatarActor);
+    }
+
+	return CachedWarriorHeroCharacter.IsValid() ? CachedWarriorHeroCharacter.Get() : nullptr;
+}
+
+AWarriorHeroController* UWarriorHeroGameplayAbility::GetHeroControllerFromActorInfo()
+{
+	if (!CachedWarriorHeroController.IsValid())
+	{
+		CachedWarriorHeroController = Cast<AWarriorHeroController>(CurrentActorInfo->PlayerController);
+	}
+	return CachedWarriorHeroController.IsValid() ? CachedWarriorHeroController.Get() : nullptr;
 }
