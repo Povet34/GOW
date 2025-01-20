@@ -23,3 +23,8 @@ AWarriorHeroController* UWarriorHeroGameplayAbility::GetHeroControllerFromActorI
 	}
 	return CachedWarriorHeroController.IsValid() ? CachedWarriorHeroController.Get() : nullptr;
 }
+
+UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()
+{
+	return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
+}

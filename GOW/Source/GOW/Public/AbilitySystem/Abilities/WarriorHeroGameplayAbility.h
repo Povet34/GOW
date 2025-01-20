@@ -7,6 +7,7 @@
 #include "WarriorHeroGameplayAbility.generated.h"
 
 class AWarriorHeroCharacter;
+class UHeroCombatComponent;
 class AWarriorHeroController;
 
 /**
@@ -23,6 +24,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
 	AWarriorHeroController* GetHeroControllerFromActorInfo();
+
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
 private:
 	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
