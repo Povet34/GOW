@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Components/PawnExtensionComponentBase.h"
+#include "GameplayTagContainer.h"
 #include "PawnCombatComponent.generated.h"
+ 
+class AWarriorWeaponBase;
 
 /**
  * 
@@ -14,4 +17,19 @@ class GOW_API UPawnCombatComponent : public UPawnExtensionComponentBase
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	void RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, AWarriorWeaponBase* InWeaponToRegister, bool bResgisterAsEquippedWeapon = false);
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	AWarriorWeaponBase* GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Warrior|Combat")
+	FGameplayTag CurrnetEquippedWeaponTag;
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	AWarriorWeaponBase* GetCharacterCurrentEquippedWeapon() const;
+
+private:
+	TMap<FGameplayTag, AWarriorWeaponBase*> CharacterCarriedWeaponMap;
 };

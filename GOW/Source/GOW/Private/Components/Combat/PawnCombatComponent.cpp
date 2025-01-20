@@ -2,4 +2,44 @@
 
 
 #include "Components/Combat/PawnCombatComponent.h"
+#include "Itmes/Weapons/WarriorWeaponBase.h"
 
+#include "WarriorDebugHelper.h"
+
+void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, AWarriorWeaponBase* InWeaponToRegister, bool bResgisterAsEquippedWeapon)
+{
+	checkf(!CharacterCarriedWeaponMap.Contains(InWeaponTagToRegister), TEXT("Weapon with tag %s already registered"), *InWeaponTagToRegister.ToString());
+	check(InWeaponToRegister);
+
+	CharacterCarriedWeaponMap.Emplace(InWeaponTagToRegister, InWeaponToRegister);
+	if (bResgisterAsEquippedWeapon)
+	{
+		CurrnetEquippedWeaponTag = InWeaponTagToRegister;
+	}
+
+	const FString Msg = FString::Printf(TEXT("Weapon with tag %s registered [Weapon Name : %s]"), *InWeaponTagToRegister.ToString(), *InWeaponToRegister->GetName());
+	Debug::Print(Msg, FColor::Green);
+}
+
+AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const
+{
+	if (CharacterCarriedWeaponMap.Contains(InWeaponTagToGet))
+	{
+		if (AWarriorWeaponBase* const* FoundWeapon = CharacterCarriedWeaponMap.Find(InWeaponTagToGet))
+		{
+			return *FoundWeapon;
+		}
+	}
+
+	return nullptr;
+}
+
+AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() const
+{
+	if (!CurrnetEquippedWeaponTag.IsValid())
+	{
+		return GetCharacterCarriedWeaponByTag(CurrnetEquippedWeaponTag);
+	}
+
+	return nullptr;
+}
