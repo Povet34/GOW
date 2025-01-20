@@ -40,7 +40,7 @@ inline void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_Input
 }
 
 template<class UserObject, typename CallbackFunc>
-inline void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputRelasedFunc)
+inline void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
 {
 	checkf(InInputConfig, TEXT("Input config data asset is null"));
 
@@ -49,6 +49,6 @@ inline void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_Inpu
 		if (!AbilityInputActionConfig.IsVaild()) continue;
 
 		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, AbilityInputActionConfig.InputTag);
-		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed, ContextObject, InputRelasedFunc, AbilityInputActionConfig.InputTag);
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, AbilityInputActionConfig.InputTag);
 	}
 }

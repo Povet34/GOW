@@ -11,6 +11,7 @@
 #include "DataAssets/DataAsset_InputConfig.h"
 #include "WarriorGameplayTags.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
 #include "WarriorDebugHelper.h"
@@ -72,6 +73,8 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 	WarriorInputComponent->BindNativeInputAction(InputconfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	WarriorInputComponent->BindNativeInputAction(InputconfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+	
+	WarriorInputComponent->BindAbilityInputAction(InputconfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 
 } 
 
@@ -111,4 +114,14 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 	{
 		AddControllerYawInput(LookAxisVector.Y);
 	}
+}
+
+void AWarriorHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }
