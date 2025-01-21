@@ -13,5 +13,6 @@ namespace WarriorGameplayTags
 
 	/** Player Tag **/
 	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe);
-
+	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Axe);
+	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Unequip_Axe);
 }
