@@ -3,6 +3,7 @@
 
 #include "Components/Combat/PawnCombatComponent.h"
 #include "Itmes/Weapons/WarriorWeaponBase.h"
+#include "Components/BoxComponent.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -35,8 +36,20 @@ AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() co
 {
 	if (!CurrnetEquippedWeaponTag.IsValid())
 	{
-		return GetCharacterCarriedWeaponByTag(CurrnetEquippedWeaponTag);
+		return nullptr;
 	}
 
-	return nullptr;
+	return GetCharacterCarriedWeaponByTag(CurrnetEquippedWeaponTag);
+}
+
+void UPawnCombatComponent::ToggleWeaponCollision(bool bEnable, EToggleDamageType ToggleDamageType)
+{
+	if (ToggleDamageType == EToggleDamageType::CurrnetEquippedWeapon)
+	{
+		AWarriorWeaponBase* WeaponToToggle = GetCharacterCurrentEquippedWeapon();
+		check(WeaponToToggle);
+		WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(bEnable ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+		Debug::Print(FString::Printf(TEXT("Weapon collision toggled to %s"), bEnable ? TEXT("Enabled") : TEXT("Disabled")), bEnable ? FColor::Green : FColor::Red);
+
+	}
 }
