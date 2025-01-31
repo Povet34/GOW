@@ -18,6 +18,9 @@ class GOW_API AWarriorEnemyCharacter : public AWarriorBaseCharacter
 public:
 	AWarriorEnemyCharacter();
 
+	//~ Begin IPawnCombatInterface Interface
+	virtual UPawnCombatComponent* GetCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface
 protected:
 
 	//~ Begin APawn Interface
