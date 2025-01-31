@@ -9,7 +9,6 @@ class UWarriorHeroLinkedAnimLayer;
 class UWarriorHeroGameplayAbility;
 class UInputMappingContext;
 
-
 USTRUCT(BlueprintType)
 struct FWarriorHeroAbilitySet
 {
