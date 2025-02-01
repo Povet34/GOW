@@ -25,9 +25,14 @@ namespace WarriorGameplayTags
 
 	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
 
+	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light);
+	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy);
+
 	/** Enemy Tag **/
 	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
 
 	/** Shared Tag **/
 	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
+
+	GOW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 }
